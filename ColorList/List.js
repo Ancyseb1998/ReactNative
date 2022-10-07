@@ -35,14 +35,13 @@ const ListView = ({list}) => {
       </TouchableOpacity>
     );
   };
-  const copyToClipboard = async () => {
-    await Clipboard.setString(copiedText);
-    console.log(copiedText)
-    Alert.alert("Copied to Clipboard")
+  const copyToClipboard = (selectedcolor) => {
+    Clipboard.setString(selectedcolor);
+    Alert.alert("Copied to Clipboard", selectedcolor)
   };
   const renderItem = ({index, item, onPress}) => {
-    console.log('itemrender', item);
-    return <Item item={item} index={index} onPress={copyToClipboard} />;
+    const hexValue = rgbToHex(item.rgb[0], item.rgb[1], item.rgb[2]);
+    return <Item item={item} index={index} onPress={()=>copyToClipboard(hexValue)} />;
     
   };
 
